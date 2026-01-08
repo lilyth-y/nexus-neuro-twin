@@ -15,20 +15,32 @@ const Features = () => {
   }, []);
 
   const features = [
-    { icon: '⚡', title: 'Ultra Fast', desc: 'Optimized for lightning-speed interactions and 100/100 performance scores.' },
-    { icon: '🛡️', title: 'Secure by Design', desc: 'Enterprise-grade security baked into every layer of the platform.' },
-    { icon: '📈', title: 'Deep Analytics', desc: 'Gain insights with our real-time data visualization engine.' }
+    {
+      title: "Hyper-Fidelity Engine",
+      description: "Powered by Unreal Engine 5, our avatars blur the line between virtual and reality.",
+      icon: "🧬"
+    },
+    {
+      title: "AI Persona Core",
+      description: "Idols that remember you. Our AI ensures unique, evolving interactions with every fan.",
+      icon: "🧠"
+    },
+    {
+      title: "Cross-Verse Connect",
+      description: "Export your Digital Human Twin to VRChat, Roblox, Unity, and beyond seamlessly.",
+      icon: "🌐"
+    }
   ];
 
   return (
     <section id="features" ref={sectionRef} className={`section-reveal ${isVisible ? 'visible' : ''}`}>
-      <h2 className="section-title">Engineered for <span className="gradient-text">Performance</span></h2>
+      <h2 className="section-title">Nexus World <span className="highlight">Features</span></h2>
       <div className="features-grid">
-        {features.map((f, i) => (
-          <GlassCard key={i} className="feature-card">
-            <div className="icon" style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>{f.icon}</div>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', fontFamily: 'var(--font-heading)' }}>{f.title}</h3>
-            <p style={{ color: 'var(--text-muted)' }}>{f.desc}</p>
+        {features.map((feature, index) => (
+          <GlassCard key={index} className="feature-card">
+            <div className="feature-icon">{feature.icon}</div>
+            <h3>{feature.title}</h3>
+            <p>{feature.description}</p>
           </GlassCard>
         ))}
       </div>

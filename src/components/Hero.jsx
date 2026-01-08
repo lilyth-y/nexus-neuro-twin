@@ -1,50 +1,64 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import GlassCard from './GlassCard';
+const AvatarViewer = React.lazy(() => import('./AvatarViewer'));
 
-const Hero = () => {
+const Hero = ({ onInitialize, avatarUrl, onEnterWorld, onConfigureIdentity, identityData }) => {
   return (
-    <section className="hero">
+    <section id="home" className="hero-section">
       <div className="hero-content">
-        <span className="badge">Next-Gen Enterprise Infrastructure</span>
-        <h1>Scale your <span className="gradient-text">AI Intelligence</span></h1>
-        <p>The premium infrastructure layer for modern enterprises. Build, deploy, and scale production-ready AI models with enterprise-grade security and reliability.</p>
-        <div className="hero-actions">
-          <button className="btn btn-primary btn-lg">Request Enterprise Demo</button>
-          <button className="btn btn-outline btn-lg">View Infrastructure</button>
+        <h1 className="glitch-text" data-text="ASCEND TO THE METAVERSE">
+          ASCEND TO THE <span className="highlight-neon">METAVERSE</span>
+        </h1>
+        <p className="hero-subtitle">
+          Forge your Digital Human Twin. Experience the next generation of virtual interaction and hyper-realistic idols.
+        </p>
+        <div className="hero-buttons">
+          <button className="btn btn-primary glow-effect" onClick={onInitialize}>
+            {avatarUrl ? 'Re-Initialize Twin' : 'Initialize Twin'}
+          </button>
+          
+          {avatarUrl && !identityData && (
+            <button className="btn btn-primary glow-effect" style={{ marginLeft: '1rem', borderColor: '#ff00ff', color: '#ff00ff' }} onClick={onConfigureIdentity}>
+              Bio-Link Identity
+            </button>
+          )}
+
+          {avatarUrl && identityData && (
+             <button className="btn btn-primary glow-effect" style={{ marginLeft: '1rem', background: '#00f3ff', color: 'black' }} onClick={onEnterWorld}>
+               Enter World
+             </button>
+          )}
+
+          {!avatarUrl && <button className="btn btn-secondary glass-effect">Explore Idols</button>}
         </div>
       </div>
       
+      {/* Central Visual Stage */}
       <div className="hero-visual">
-        <GlassCard className="main-card" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} animate={true}>
-          <div className="card-header" style={{ display: 'flex', gap: '6px', marginBottom: '1.5rem' }}>
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ff5f56' }}></div>
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ffbd2e' }}></div>
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#27c93f' }}></div>
-          </div>
-          <div className="card-body">
-            <div style={{ background: 'rgba(255,255,255,0.05)', height: '10px', borderRadius: '5px', width: '100%', marginBottom: '1rem' }}></div>
-            <div style={{ background: 'rgba(255,255,255,0.05)', height: '10px', borderRadius: '5px', width: '60%', marginBottom: '1rem' }}></div>
-            <div className="graph-placeholder">
-              <div className="bar" style={{ height: '60%' }}></div>
-              <div className="bar" style={{ height: '80%' }}></div>
-              <div className="bar" style={{ height: '40%' }}></div>
-              <div className="bar" style={{ height: '90%' }}></div>
-            </div>
-          </div>
-        </GlassCard>
-        
-        <GlassCard className="sub-card-1" style={{ top: '10%', right: '5%' }} animate={true}>
-          <div className="card-body">
-            <div style={{ width: '60px', height: '60px', borderRadius: '50%', border: '4px solid var(--primary)', marginBottom: '1rem' }}></div>
-            <div style={{ background: 'rgba(255,255,255,0.05)', height: '10px', borderRadius: '5px', width: '30%' }}></div>
-          </div>
-        </GlassCard>
-
-        <GlassCard className="sub-card-2" style={{ bottom: '10%', left: '0' }} animate={true}>
-          <div className="card-body">
-            <div style={{ background: 'rgba(255,255,255,0.05)', height: '10px', borderRadius: '5px', width: '60%' }}></div>
-          </div>
-        </GlassCard>
+         <div className="hologram-circle"></div>
+         {avatarUrl && (
+             <div style={{ width: '100%', height: '100%', position: 'relative', zIndex: 2 }}>
+                <React.Suspense fallback={<div>Loading Avatar...</div>}>
+                    <AvatarViewer avatarUrl={avatarUrl} />
+                </React.Suspense>
+                
+                {identityData && (
+                  <div className="stats-overlay glass-panel slide-up">
+                    <h3 className="neon-cyan">BIO-SYNC ACTIVE</h3>
+                    <div className="stat-row">
+                      <span>Dominant Trait:</span>
+                      <span className="bold neon-magenta">
+                        {identityData.reduce((prev, current) => (prev.A > current.A) ? prev : current).subject.toUpperCase()}
+                      </span>
+                    </div>
+                    <div className="stat-row">
+                      <span>Neuro-Link:</span>
+                      <span className="bold neon-green">100% STABLE</span>
+                    </div>
+                  </div>
+                )}
+             </div>
+         )}
       </div>
     </section>
   );

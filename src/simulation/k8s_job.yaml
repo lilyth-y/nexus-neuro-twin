@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mumax3-simulation-job
+  namespace: neuro-digital-twin
+spec:
+  template:
+    spec:
+      containers:
+      - name: mumax3-solver
+        image: gcr.io/neuro-twin-project/mumax3-solver:latest
+        resources:
+          limits:
+            nvidia.com/gpu: 1 # Request 1 GPU
+        volumeMounts:
+        - name: simulation-output
+          mountPath: /app/output
+      volumes:
+      - name: simulation-output
+        persistentVolumeClaim:
+          claimName: mumax3-pvc
+      restartPolicy: Never
+  backoffLimit: 4

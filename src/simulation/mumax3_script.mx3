@@ -1,0 +1,44 @@
+// MuMax3 Script for Neuro-Magnonic Reservoir
+// Author: Antigravity Agent
+// Description: Simulation of spin wave interference in a 128x128 Permalloy grid
+
+// 1. Grid & Geometry Definition
+SetGridsize(128, 128, 1)
+SetCellsize(4e-9, 4e-9, 10e-9) // 4nm cells, 10nm thick
+
+// 2. Material Parameters (Permalloy: Ni80Fe20)
+Msat  = 800e3  // Saturation Magnetization (A/m)
+Aex   = 13e-12 // Exchange Stiffness (J/m)
+alpha = 0.01   // Gilbert Damping (Modulated by Theta Wave)
+
+// 3. Boundary & Field
+// Periodic Boundary Conditions to simulate infinite medium
+// SetPBC(1, 1, 0) 
+
+// External bias field (optional, for stabilizing textures)
+// B_ext = vector(0.02, 0, 0)
+
+// 4. Excitation (Input)
+// Region 1: Central Circle (Input Node)
+defRegion(1, circle(10e-9)) 
+// Region 2: Readout Array (16 points)
+// Defined programmatically or via mask...
+
+// Excitation Signal: Modulated by EEG Beta Power (simulated)
+f_carrier := 14e9 // 14 GHz
+B_rf := 0.005     // Amplitude
+t_pulse := 1e-9   // Pulse duration
+
+// Sinc pulse for broadband excitation or Sin for continuous
+B_ext.setRegion(1, vector(0, 0, B_rf * sin(2*pi*f_carrier*t)))
+
+// 5. Run Schedule
+Relax()          // Relax to ground state
+AutoSave(M, 10e-12) // Save magnetization every 10ps
+TableAdd(B_ext)
+TableAdd(E_total)
+
+print("Starting Neuro-Pulse Injection...")
+Run(5e-9) // Run for 5 nanoseconds
+
+print("Simulation Complete.")

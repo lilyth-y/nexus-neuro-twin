@@ -1,33 +1,30 @@
 :root {
-    --bg-dark: #070709;
-    --primary: #3b82f6;
-    --primary-glow: rgba(59, 130, 246, 0.5);
-    --secondary: #a855f7;
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --glass: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --surface: #111114;
-    --font-heading: 'Outfit', sans-serif;
+    --bg-color: #050510;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0b0;
+    --neon-purple: #b026ff;
+    --neon-blue: #00f3ff;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --font-heading: 'Orbitron', sans-serif;
     --font-body: 'Inter', sans-serif;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    background-color: var(--bg-dark);
-    color: var(--text-main);
+    background-color: var(--bg-color);
+    color: var(--text-primary);
     font-family: var(--font-body);
     line-height: 1.6;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
+    margin: 0;
 }
 
-/* Glow Background */
+h1,
+h2,
+h3,
+.btn {
+    font-family: var(--font-heading);
+}
+
 .glow-bg {
     position: fixed;
     top: 0;
@@ -35,104 +32,36 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
-    background:
-        radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.15), transparent 40%),
-        radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.15), transparent 40%);
+    background: radial-gradient(circle at 50% 50%, #1a1a3a, var(--bg-color));
 }
 
-/* Navbar */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 5%;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--glass-border);
-    background: rgba(7, 7, 9, 0.7);
-}
-
-.logo {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 1.5rem;
-    letter-spacing: 2px;
-    background: linear-gradient(to right, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 2.5rem;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: var(--text-muted);
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: var(--text-main);
-}
-
-.nav-cta {
-    display: flex;
-    gap: 1rem;
-}
-
-/* Buttons */
 .btn {
-    padding: 0.75rem 1.5rem;
-    border-radius: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 12px 30px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
     border: none;
-    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background: var(--neon-purple);
     color: white;
-    box-shadow: 0 4px 15px var(--primary-glow);
+    box-shadow: 0 0 20px rgba(176, 38, 255, 0.4);
 }
 
 .btn-primary:hover {
+    box-shadow: 0 0 40px rgba(176, 38, 255, 0.7);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px var(--primary-glow);
 }
 
-.btn-outline {
-    background: transparent;
-    color: var(--text-main);
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
     border: 1px solid var(--glass-border);
-}
-
-.btn-outline:hover {
-    background: var(--glass);
-    border-color: var(--text-muted);
-}
-
-.btn-ghost {
-    background: transparent;
-    color: var(--text-main);
-}
-
-.btn-ghost:hover {
-    text-decoration: underline;
-}
-
-.btn-lg {
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
+    padding: 2rem;
+    border-radius: 12px;
 }
 
 /* Hero Section */

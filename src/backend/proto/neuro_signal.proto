@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package neuro_twin;
+
+// Service for streaming EEG data to the Magnonic Digital Twin
+service NeuroLink {
+  // Bi-directional streaming: Input EEG -> Output Kinematics
+  rpc StreamNeuroDynamics (stream EEGInput) returns (stream KinematicOutput) {}
+}
+
+message EEGInput {
+  double timestamp = 1;      // Unix timestamp
+  string device_id = 2;      // "Ganglion_X82"
+  repeated double channels = 3; // Raw channel data [TP9, AF7, AF8, TP10]
+  NeuroState state = 4;      // Pre-processed mental state (optional)
+}
+
+message NeuroState {
+  double theta_power = 1;    // Relaxation (modulates Damping alpha)
+  double beta_power = 2;     // Focus (modulates Excitation B_ext)
+}
+
+message KinematicOutput {
+  double timestamp = 1;
+  repeated double joint_angles = 2; // [Neck, Shoulder_L, Shoulder_R, ...]
+  double fluidity_index = 3;        // Real-time smoothness metric
+  double stability_score = 4;       // Ground state divergence
+}
